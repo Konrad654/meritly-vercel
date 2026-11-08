@@ -1,0 +1,602 @@
+[
+  {
+    "n": 1,
+    "name": "Responsiv design",
+    "status": "Ingår",
+    "note": "Anpassade brytpunkter för mobil, surfplatta och dator."
+  },
+  {
+    "n": 2,
+    "name": "Dark mode",
+    "status": "Ingår",
+    "note": "Ljust, mörkt eller enhetens tema."
+  },
+  {
+    "n": 3,
+    "name": "Glassmorphism",
+    "status": "Ingår",
+    "note": "Genomskinlig sticky header och dialogbakgrund."
+  },
+  {
+    "n": 4,
+    "name": "Gradientbakgrunder",
+    "status": "Ingår",
+    "note": "Färgövergångar i välkomstsektion och detaljsidor."
+  },
+  {
+    "n": 5,
+    "name": "Bento Grid",
+    "status": "Ingår",
+    "note": "Informationskort i välkomstsektion och studieöversikt."
+  },
+  {
+    "n": 6,
+    "name": "Hover-effekter",
+    "status": "Ingår",
+    "note": "Kort, länkar och knappar."
+  },
+  {
+    "n": 7,
+    "name": "Mikroanimationer",
+    "status": "Ingår",
+    "note": "Klick- och valfeedback, med stöd för minskad rörelse."
+  },
+  {
+    "n": 8,
+    "name": "Parallax scrolling",
+    "status": "Ingår",
+    "note": "Diskret rörelse i välkomstillustrationen; avstängd vid reduced motion."
+  },
+  {
+    "n": 9,
+    "name": "Scrollanimationer",
+    "status": "Ingår",
+    "note": "Korten tonas in när de blir synliga."
+  },
+  {
+    "n": 10,
+    "name": "Skeleton loading",
+    "status": "Ingår",
+    "note": "Platshållare under läsning av importerad säkerhetskopia."
+  },
+  {
+    "n": 11,
+    "name": "Sticky header",
+    "status": "Ingår",
+    "note": "Huvudmenyn följer scrollningen."
+  },
+  {
+    "n": 12,
+    "name": "Mega menu",
+    "status": "Ingår",
+    "note": "Ämnen grupperade i en fällbar meny."
+  },
+  {
+    "n": 13,
+    "name": "Hamburgermeny",
+    "status": "Ingår",
+    "note": "Mobilmeny med aria-expanded."
+  },
+  {
+    "n": 14,
+    "name": "Breadcrumbs",
+    "status": "Ingår",
+    "note": "Brödsmulor på utbildningssidor."
+  },
+  {
+    "n": 15,
+    "name": "Back to top",
+    "status": "Ingår",
+    "note": "Flytande knapp efter scrollning."
+  },
+  {
+    "n": 16,
+    "name": "Aktiv sidmarkering",
+    "status": "Ingår",
+    "note": "Aktiv huvudsida, aktiv flik och resultatsida."
+  },
+  {
+    "n": 17,
+    "name": "Sidomeny",
+    "status": "Ingår",
+    "note": "Separat filterpanel i katalogen."
+  },
+  {
+    "n": 18,
+    "name": "Snabblänkar",
+    "status": "Ingår",
+    "note": "Sidfot, ämneslänkar och kommandomeny."
+  },
+  {
+    "n": 19,
+    "name": "Fliksystem",
+    "status": "Ingår",
+    "note": "Alla/sparade och översikt/profil/aktivitet."
+  },
+  {
+    "n": 20,
+    "name": "Kommandomeny",
+    "status": "Ingår",
+    "note": "Ctrl+K eller sökknappen; sök sidor och utbildningar."
+  },
+  {
+    "n": 21,
+    "name": "Live search",
+    "status": "Ingår",
+    "note": "Resultat uppdateras direkt i webbläsaren."
+  },
+  {
+    "n": 22,
+    "name": "Autocomplete",
+    "status": "Ingår",
+    "note": "Inbyggd förslagslista med ämnen, namn och anordnare."
+  },
+  {
+    "n": 23,
+    "name": "Fuzzy search",
+    "status": "Ingår",
+    "note": "Tolererar en bokstavs skillnad för längre sökord."
+  },
+  {
+    "n": 24,
+    "name": "Kategorifilter",
+    "status": "Ingår",
+    "note": "Ämnesfilter."
+  },
+  {
+    "n": 25,
+    "name": "Flera samtidiga filter",
+    "status": "Ingår",
+    "note": "Ämne, anordnare, nivå, merittyp och tid kan kombineras."
+  },
+  {
+    "n": 26,
+    "name": "Sortering",
+    "status": "Ingår",
+    "note": "Namn, anordnare, tid, privat betyg och egen besökshistorik. Inga påhittade globala betyg."
+  },
+  {
+    "n": 27,
+    "name": "Filterchips",
+    "status": "Ingår",
+    "note": "Aktiva filter kan tas bort var för sig."
+  },
+  {
+    "n": 28,
+    "name": "Återställ filter",
+    "status": "Ingår",
+    "note": "Återställ alla filter."
+  },
+  {
+    "n": 29,
+    "name": "Sökförslag",
+    "status": "Ingår",
+    "note": "Relevanta exempel och sökförslag, inga påståenden om global popularitet."
+  },
+  {
+    "n": 30,
+    "name": "Sparade sökningar",
+    "status": "Lokal variant",
+    "note": "Spara och återställ sökningar lokalt."
+  },
+  {
+    "n": 31,
+    "name": "Interaktiva innehållskort",
+    "status": "Ingår",
+    "note": "Kort med anordnarlogga, beskrivning och verktyg."
+  },
+  {
+    "n": 32,
+    "name": "Dedikerade detaljsidor",
+    "status": "Ingår",
+    "note": "En statisk sida per katalogpost."
+  },
+  {
+    "n": 33,
+    "name": "Expanderbara sektioner",
+    "status": "Ingår",
+    "note": "Expanderbara fakta och instruktioner."
+  },
+  {
+    "n": 34,
+    "name": "Relaterat innehåll",
+    "status": "Ingår",
+    "note": "Andra utbildningar inom samma kategori."
+  },
+  {
+    "n": 35,
+    "name": "Rekommendationssektion",
+    "status": "Ingår",
+    "note": "Förslag i kortkarusell."
+  },
+  {
+    "n": 36,
+    "name": "Favoritmarkering",
+    "status": "Ingår",
+    "note": "Hjärta på kort och sparaknapp på detaljsidor."
+  },
+  {
+    "n": 37,
+    "name": "Jämförelsefunktion",
+    "status": "Ingår",
+    "note": "Tabell för två eller tre utbildningar."
+  },
+  {
+    "n": 38,
+    "name": "Snabbförhandsvisning",
+    "status": "Ingår",
+    "note": "Dialog med kort information och detaljlänk."
+  },
+  {
+    "n": 39,
+    "name": "Delningsknappar",
+    "status": "Ingår",
+    "note": "Webbläsarens delningsfunktion, alternativt kopiera länk."
+  },
+  {
+    "n": 40,
+    "name": "Kopiera länk",
+    "status": "Ingår",
+    "note": "Kopierar kursens direktadress; läsbart alternativ om urklipp blockeras."
+  },
+  {
+    "n": 41,
+    "name": "Kontoregistrering",
+    "status": "Ingår inte",
+    "note": "Kräver ett säkert kontosystem på servern. Ingår inte."
+  },
+  {
+    "n": 42,
+    "name": "Inloggning",
+    "status": "Ingår inte",
+    "note": "Kräver autentisering och server. Ingen låtsasinloggning."
+  },
+  {
+    "n": 43,
+    "name": "Användarprofil",
+    "status": "Lokal variant",
+    "note": "Lokal profil med namn, mål och intressen. Inget konto."
+  },
+  {
+    "n": 44,
+    "name": "Personlig dashboard",
+    "status": "Lokal variant",
+    "note": "Lokalt sparade kurser, framsteg och översikt."
+  },
+  {
+    "n": 45,
+    "name": "Sparade favoriter",
+    "status": "Lokal variant",
+    "note": "Egen sparad lista i webbläsaren."
+  },
+  {
+    "n": 46,
+    "name": "Aktivitetslogg",
+    "status": "Lokal variant",
+    "note": "Egen aktivitetslogg, högst 80 händelser."
+  },
+  {
+    "n": 47,
+    "name": "Personliga rekommendationer",
+    "status": "Lokal variant",
+    "note": "Regelbaserade förslag från egna intressen och favoriter."
+  },
+  {
+    "n": 48,
+    "name": "Språkväljare",
+    "status": "Ingår",
+    "note": "Svenskt/engelskt gränssnitt. Kursnamn och källuppgifter behålls."
+  },
+  {
+    "n": 49,
+    "name": "Notiscenter",
+    "status": "Lokal variant",
+    "note": "Center för webbplatsens publicerade uppdateringar, inga pushnotiser."
+  },
+  {
+    "n": 50,
+    "name": "Inställningspanel",
+    "status": "Ingår",
+    "note": "Tema, språk, rörelse, lagring, backup och offline."
+  },
+  {
+    "n": 51,
+    "name": "Modal-popup",
+    "status": "Ingår",
+    "note": "Tangentbordsåtkomlig dialog med stängknapp."
+  },
+  {
+    "n": 52,
+    "name": "Toast notifications",
+    "status": "Ingår",
+    "note": "Bekräftelser via aria-live."
+  },
+  {
+    "n": 53,
+    "name": "Tooltip",
+    "status": "Ingår",
+    "note": "Förklarande title-etiketter på sparaknapp och diagram."
+  },
+  {
+    "n": 54,
+    "name": "Accordion",
+    "status": "Ingår",
+    "note": "Vanliga frågor och fällbara detaljer."
+  },
+  {
+    "n": 55,
+    "name": "Bild- och kortkarusell",
+    "status": "Ingår",
+    "note": "Horisontell kortkarusell med bläddringsknappar."
+  },
+  {
+    "n": 56,
+    "name": "Progress bar",
+    "status": "Ingår",
+    "note": "Läsposition, guidesteg och självrapporterade framsteg."
+  },
+  {
+    "n": 57,
+    "name": "Stegvis formulär",
+    "status": "Ingår",
+    "note": "Tre steg för att välja ämne och tidsåtgång."
+  },
+  {
+    "n": 58,
+    "name": "Drag and drop",
+    "status": "Ingår",
+    "note": "Ordna sparade kort; upp/ned-knappar som tangentbordsalternativ."
+  },
+  {
+    "n": 59,
+    "name": "Interaktiva diagram",
+    "status": "Ingår",
+    "note": "Interaktiva staplar över egna sparade ämnen; klick filtrerar."
+  },
+  {
+    "n": 60,
+    "name": "Dynamiska räknare",
+    "status": "Ingår",
+    "note": "Antal träffar, sparade, klarmarkerade och egna poäng."
+  },
+  {
+    "n": 61,
+    "name": "Kontaktformulär",
+    "status": "Ingår inte",
+    "note": "Att skicka meddelanden direkt kräver server eller e-posttjänst. GitHub-feedback används i stället."
+  },
+  {
+    "n": 62,
+    "name": "Realtidsvalidering",
+    "status": "Ingår",
+    "note": "Formulär kontrollerar längd och URL-format."
+  },
+  {
+    "n": 63,
+    "name": "Nyhetsbrevsregistrering",
+    "status": "Ingår inte",
+    "note": "E-postprenumerationer kräver annan tjänst."
+  },
+  {
+    "n": 64,
+    "name": "Feedbackfunktion",
+    "status": "Ingår",
+    "note": "Förbered feedback som GitHub-ärende. Användaren granskar och skickar själv på GitHub."
+  },
+  {
+    "n": 65,
+    "name": "Betygssystem",
+    "status": "Lokal variant",
+    "note": "Privata betyg i egen webbläsare. Inga gemensamma stjärnsnitt."
+  },
+  {
+    "n": 66,
+    "name": "Recensioner",
+    "status": "Lokal variant",
+    "note": "Privata omdömen. Inga offentliga användarrecensioner."
+  },
+  {
+    "n": 67,
+    "name": "FAQ-sida",
+    "status": "Ingår",
+    "note": "Egen FAQ-sida."
+  },
+  {
+    "n": 68,
+    "name": "Livechatt",
+    "status": "Ingår inte",
+    "note": "Kräver kommunikationsserver eller extern tjänst."
+  },
+  {
+    "n": 69,
+    "name": "AI-chattassistent",
+    "status": "Ingår inte",
+    "note": "Kräver AI-tjänst eller en lokal modell som inte ingår."
+  },
+  {
+    "n": 70,
+    "name": "Felrapportering",
+    "status": "Ingår",
+    "note": "Förbereder GitHub-ärende med kurslänk. Inget skickas automatiskt."
+  },
+  {
+    "n": 71,
+    "name": "Lazy loading",
+    "status": "Ingår",
+    "note": "Loggor utanför första vyn laddas vid behov."
+  },
+  {
+    "n": 72,
+    "name": "Bildoptimering",
+    "status": "Ingår",
+    "note": "Små lokala SVG-loggor och optimerade PNG-appikoner."
+  },
+  {
+    "n": 73,
+    "name": "Caching",
+    "status": "Ingår",
+    "note": "Versionsmärkta resurser och service worker; nätverket prioriteras."
+  },
+  {
+    "n": 74,
+    "name": "SEO-optimering",
+    "status": "Ingår",
+    "note": "Statiskt läsbara sidor, metadata, canonical, robots.txt och sitemap."
+  },
+  {
+    "n": 75,
+    "name": "Strukturerad data",
+    "status": "Ingår",
+    "note": "JSON-LD med Course och anordnare, utan uppdiktade betyg."
+  },
+  {
+    "n": 76,
+    "name": "Tangentbordsnavigering",
+    "status": "Ingår",
+    "note": "Native knappar, select, dialog, fokusmarkering och upp/ned-alternativ."
+  },
+  {
+    "n": 77,
+    "name": "Skärmläsarstöd",
+    "status": "Ingår",
+    "note": "Etiketter, aria-live, semantiska regioner och tillgängliga knappar."
+  },
+  {
+    "n": 78,
+    "name": "Reduced motion",
+    "status": "Ingår",
+    "note": "Respekterar enhetens val och separat rörelseinställning."
+  },
+  {
+    "n": 79,
+    "name": "Säker HTTPS-anslutning",
+    "status": "Ingår",
+    "note": "Befintlig HTTPS via GitHub Pages."
+  },
+  {
+    "n": 80,
+    "name": "Cookie- och lagringsinställningar",
+    "status": "Ingår",
+    "note": "Inga analyscookies. Lokal lagring kan avaktiveras eller raderas."
+  },
+  {
+    "n": 81,
+    "name": "Gamification",
+    "status": "Lokal variant",
+    "note": "Lokala aktivitetspoäng, inte officiella meriter."
+  },
+  {
+    "n": 82,
+    "name": "Achievements",
+    "status": "Lokal variant",
+    "note": "Egna milstolpar för sparande, klarmarkering och studiedagar."
+  },
+  {
+    "n": 83,
+    "name": "Streak-system",
+    "status": "Lokal variant",
+    "note": "Dagar i följd med egen studieincheckning."
+  },
+  {
+    "n": 84,
+    "name": "Progress tracking",
+    "status": "Lokal variant",
+    "note": "Självrapporterad procentsats, inte verifierad kursstatus."
+  },
+  {
+    "n": 85,
+    "name": "Personlig checklista",
+    "status": "Lokal variant",
+    "note": "Checklista per utbildning."
+  },
+  {
+    "n": 86,
+    "name": "Onboarding",
+    "status": "Ingår",
+    "note": "Välkomstpanel som kan stängas eller starta guide."
+  },
+  {
+    "n": 87,
+    "name": "Interaktiv guide",
+    "status": "Ingår",
+    "note": "Tre steg som förklarar sökning, jämförelse och studieplan."
+  },
+  {
+    "n": 88,
+    "name": "Senast besökta",
+    "status": "Lokal variant",
+    "note": "De tolv senast öppnade utbildningarna sparas lokalt."
+  },
+  {
+    "n": 89,
+    "name": "Populärt just nu",
+    "status": "Lokal variant",
+    "note": "Ingen global popularitet utan statistikbackend. Visar i stället mest öppnade av dig."
+  },
+  {
+    "n": 90,
+    "name": "Notiser om uppdateringar",
+    "status": "Ingår",
+    "note": "Publicerade versionsanteckningar och lästmarkering lokalt."
+  },
+  {
+    "n": 91,
+    "name": "AI-driven sökning",
+    "status": "Ingår inte",
+    "note": "Ingen AI. Vanlig sökning med stavfelstolerans och ett litet synonymlexikon."
+  },
+  {
+    "n": 92,
+    "name": "Semantisk sökning",
+    "status": "Ingår inte",
+    "note": "Ingen semantisk modell. Synonymer är regelbaserad nyckelordssökning."
+  },
+  {
+    "n": 93,
+    "name": "Automatiska rekommendationer",
+    "status": "Lokal variant",
+    "note": "Regelbaserad rangordning från egna val, utan extern tjänst."
+  },
+  {
+    "n": 94,
+    "name": "PWA-stöd",
+    "status": "Ingår",
+    "note": "Manifest och appikoner. Installation beror på webbläsarens stöd."
+  },
+  {
+    "n": 95,
+    "name": "Offlinefunktioner",
+    "status": "Ingår",
+    "note": "Explicit hämtning av katalog och detaljsidor; externa kurser kräver internet."
+  },
+  {
+    "n": 96,
+    "name": "Realtidsuppdateringar",
+    "status": "Lokal variant",
+    "note": "Lokala uppgifter uppdateras mellan öppna flikar. Nya katalogversioner hämtas när sidan uppdateras, ingen server-push."
+  },
+  {
+    "n": 97,
+    "name": "API-integrationer",
+    "status": "Ingår",
+    "note": "Valfri kontroll av senaste källkodsändringen via GitHubs offentliga API. Ingen API-nyckel och inga andra tjänster."
+  },
+  {
+    "n": 98,
+    "name": "Administrationspanel",
+    "status": "Lokal variant",
+    "note": "Lokalt utkastverktyg med export. Publicering och behörigheter hanteras separat i GitHub."
+  },
+  {
+    "n": 99,
+    "name": "Analysdashboard",
+    "status": "Lokal variant",
+    "note": "Enbart egen lokal studieaktivitet och ämnesstatistik, ingen global trafikanalys."
+  },
+  {
+    "n": 100,
+    "name": "Ingen funktion angiven",
+    "status": "Ingår inte",
+    "note": "Nummer 100 saknar namn och beskrivning i underlaget."
+  }
+]
