@@ -1,6 +1,6 @@
-# Meritly på Vercel
+# SkillStamp på Vercel
 
-Projektet bygger på den publicerade Meritly-versionen i Konrad654/Min-hemsida (a83dd36). Design, kursdata, loggor, sökning, jämförelse och de lokala studieverktygen finns med. Webappen byggs till statiska filer i public.
+Projektet bygger på den publicerade SkillStamp-versionen i Konrad654/Min-hemsida. Design, kursdata, loggor, sökning, jämförelse och de lokala studieverktygen finns med. Webappen byggs till statiska filer i public.
 
 ## Publicera
 
