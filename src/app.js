@@ -31,50 +31,27 @@ function theme(){const dark=preferences.theme==='dark'||preferences.theme==='aut
 function prefsSave(){try{localStorage.setItem('meritly-preferences',JSON.stringify(preferences))}catch{}theme()}
 function shell(){theme();
 $('#navigation').innerHTML=`<a href="${url('index.html')}" ${currentView==='catalog'?'aria-current="page"':''}>${t('Utforska','Explore')}</a><details class="mega"><summary>${t('Ämnen','Topics')}</summary><div class="mega-panel">${categories.map(c=>`<a href="${url('index.html')}?category=${encodeURIComponent(c)}">${e(label(c))}</a>`).join('')}<a href="${url('faq.html')}">${t('Vanliga frågor','FAQ')}</a></div></details><a href="${url('dashboard.html')}" ${currentView==='dashboard'?'aria-current="page"':''}>${t('Min översikt','My overview')}</a><a href="${url('om-oss.html')}">${t('Om oss','About')}</a><a href="${url('index.html')}#sparade">${t('Sparade','Saved')} <span class="count">${user.saved.length}</span></a><a class="btn primary header-cta" href="${url('index.html')}#catalog">${t('Hitta en kurs','Find a course')} ${icon('↗')}</a>`;
-$('#global-tools').innerHTML=`<button type="button" class="icon-button" data-action="notifications" aria-label="${t('Notiscenter','Notification centre')}">◉${user.seen.includes(releaseId)?'':' •'}</button><button type="button" class="icon-button" data-action="command" aria-label="${t('Sök sidor och funktioner','Search pages and commands')}">⌕ <kbd>Ctrl K</kbd></button><button type="button" class="icon-button" data-action="theme" aria-label="${t('Växla tema','Toggle theme')}">${document.documentElement.dataset.theme==='dark'?'☀':'◐'}</button>${button(t('Inställningar','Settings'),'settings','','text-button')}<button type="button" class="icon-button mobile-toggle" data-action="mobile" aria-label="${t('Öppna meny','Open menu')}" aria-expanded="false" aria-controls="navigation">☰</button>`;
+$('#global-tools').innerHTML=`<button type="button" class="icon-button" data-action="notifications" aria-label="${t('Notiscenter','Notification centre')}">◉${user.seen.includes(releaseId)?'':' •'}</button><button type="button" class="icon-button" data-action="command" aria-label="${t('Sök sidor och funktioner','Search pages and commands')}">⌕ <kbd>Ctrl K</kbd></button><button type="button" class="icon-button" data-action="theme" aria-label="${t('Växla tema','Toggle theme')}">${document.documentElement.dataset.theme==='dark'?'☀':'◐'}</button>${button(t('Inställningar','Settings'),'settings','','text-button')}<a class="account-link btn secondary" href="${url('account.html')}">${t('Konto','Account')}</a><button type="button" class="icon-button mobile-toggle" data-action="mobile" aria-label="${t('Öppna meny','Open menu')}" aria-expanded="false" aria-controls="navigation">☰</button>`;
 $('#site-footer').innerHTML=`<div><a class="brand" href="${url('index.html')}">Meritly.</a><p>${t('Kunskap som tar dig vidare.','Knowledge that moves you forward.')}</p><small>${t('Oberoende katalog. Villkor kan ändras.','Independent catalogue. Terms may change.')}</small></div><nav aria-label="${t('Sidfot','Footer')}">${[['faq.html',t('Vanliga frågor','FAQ')],['updates.html',t('Uppdateringar','Updates')],['settings.html',t('Integritet & inställningar','Privacy & settings')],['editor.html',t('Katalogverktyg','Catalogue tools')],['features.html',t('Funktioner','Features')]].map(([u,s])=>`<a href="${url(u)}">${s}</a>`).join('')}</nav>`;
 $('#backTop').ariaLabel=t('Till toppen','Back to top');
 }
 function heading(title,subtitle=''){return `<div class="sectiontitle"><div><h1>${title}</h1><p>${subtitle}</p></div></div>`}
 const spotlightTopics = [
-  {category:'Marknadsföring', art:'indigo', description:()=>t('SEO, innehåll och digitala kanaler.','SEO, content and digital channels.')},
-  {category:'Programmering', art:'ember', description:()=>t('Webb, JavaScript och databaser.','Web, JavaScript and databases.')},
-  {category:'Cybersäkerhet', art:'dusk', description:()=>t('Nätverk och grunderna i säkerhet.','Networks and security fundamentals.')}
+  {category:'Marknadsföring', description:()=>t('SEO, innehåll och digitala kanaler.','SEO, content and digital channels.')},
+  {category:'Programmering', description:()=>t('Webb, JavaScript och databaser.','Web, JavaScript and databases.')},
+  {category:'Cybersäkerhet', description:()=>t('Nätverk och grunderna i säkerhet.','Networks and security fundamentals.')}
 ];
-let spotlightIndex = 1;
-let providerPlayback;
-const providerMotion = ()=>matchMedia('(prefers-reduced-motion: reduce)');
-const currentProviderPlayback = ()=>providerPlayback ?? (providerMotion().matches?'idle':'playing');
-const providerButtonLabel = playback=>playback==='playing'
-  ? t('Pausa logoraden','Pause provider logos')
-  : t('Spela logoraden','Play provider logos');
-
-function updateProviderPlayback(playback){
-  $('.provider-strip').dataset.playback = playback;
-  $('.provider-toggle').setAttribute('aria-label',providerButtonLabel(playback));
-}
-
 function spotlightCards(){
-  const order = [(spotlightIndex+2)%3, spotlightIndex, (spotlightIndex+1)%3];
-  return order.map(index => {
-    const topic = spotlightTopics[index];
+  return spotlightTopics.map(topic=>{
     const href = url('index.html')+'?category='+encodeURIComponent(topic.category)+'#catalog';
-    return `<a class="spotlight-topic ${index===spotlightIndex?'is-featured':''}" href="${href}">
-      <span class="topic-art topic-art--${topic.art}" aria-hidden="true"><span class="topic-arrow">↗</span></span>
-      <span class="topic-name">${e(label(topic.category))}</span>
+    return `<a class="spotlight-topic" href="${href}">
+      <span class="topic-name">${e(label(topic.category))} ${icon('↗')}</span>
       <span class="topic-copy">${topic.description()}</span>
     </a>`;
   }).join('');
 }
 
-function selectSpotlight(value){
-  spotlightIndex = Number(value);
-  $$('.spotlight-tab').forEach((tab,index)=>tab.setAttribute('aria-pressed',String(index===spotlightIndex)));
-  $('#spotlight-stage').innerHTML = spotlightCards();
-}
-
 function hero(){
-  const playback = currentProviderPlayback();
   const providers = Object.entries(providerLogos);
   const providerItems = providers.map(([name,asset])=>`<li><img loading="lazy" width="25" height="25" src="${url('assets/logos/'+asset+'.svg')}" alt=""><span>${e(name)}</span></li>`).join('');
   return `<section class="hero" aria-labelledby="hero-title">
@@ -87,19 +64,15 @@ function hero(){
       </div>
     </div>
     <section class="spotlight" aria-label="${t('Utvalda ämnen','Featured topics')}">
-      <div class="spotlight-tabs" role="group" aria-label="${t('Välj ämne att lyfta fram','Choose a topic to highlight')}">
-        ${spotlightTopics.map((topic,index)=>`<button type="button" class="spotlight-tab" data-action="spotlight" data-value="${index}" aria-pressed="${index===spotlightIndex}" aria-controls="spotlight-stage"><span aria-hidden="true"></span>${e(label(topic.category))}</button>`).join('')}
-      </div>
       <div id="spotlight-stage" class="spotlight-stage">${spotlightCards()}</div>
       <div class="spotlight-footer">
         <span class="technical">${catalogue().length} ${t('utbildningar','courses')} / ${providers.length} ${t('anordnare','providers')}</span>
         <a href="#catalog" class="btn secondary">${t('Se hela katalogen','View the full catalogue')} ${icon('↗')}</a>
       </div>
     </section>
-    <div class="provider-strip" data-playback="${playback}">
+    <div class="provider-strip">
       <div class="provider-heading">
         <p>${t('Utbildningsanordnare i katalogen','Course providers in the catalogue')}</p>
-        <button class="provider-toggle" type="button" data-action="toggleProviders" aria-label="${providerButtonLabel(playback)}" aria-controls="provider-track"></button>
       </div>
       <div class="provider-viewport">
         <div id="provider-track" class="provider-track">
@@ -127,13 +100,29 @@ function dashboardBody(which){if(which==='profile')return profileForm();if(which
 function popularLinks(){const counts={};user.activity.filter(a=>a.courseId).forEach(a=>counts[a.courseId]=(counts[a.courseId]||0)+1);return Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([id,n])=>course(id)?`<p><a href="${linkTo(course(id))}">${e(course(id).title)}</a> · ${n}</p>`:'').join('')}
 function profileForm(){return `<form id="profileForm" class="content-panel"><h2>${t('Min lokala profil','My local profile')}</h2><p>${t('Ingen inloggning, inget konto och ingen synkronisering.','No login, no account and no syncing.')}</p><label>${t('Visningsnamn','Display name')}<input name="name" maxlength="50" value="${e(user.profile.name)}"></label><label>${t('Mitt mål','My goal')}<input name="goal" maxlength="160" value="${e(user.profile.goal)}"></label><fieldset><legend>${t('Mina intressen','My interests')}</legend>${categories.map(c=>`<label class="inline"><input name="interest" type="checkbox" value="${e(c)}" ${user.profile.interests.includes(c)?'checked':''}> ${e(label(c))}</label>`).join('')}</fieldset><button class="primary" type="submit">${t('Spara profil','Save profile')}</button><p id="profileStatus" role="status"></p></form>`}
 function settings(){return heading(t('Inställningar & integritet','Settings & privacy'))+`<section class="content-panel settings"><label>${t('Tema','Theme')}<select id="themeChoice">${[['auto',t('Följ enheten','Follow device')],['light',t('Ljust','Light')],['dark',t('Mörkt','Dark')]].map(([v,s])=>`<option value="${v}" ${preferences.theme===v?'selected':''}>${s}</option>`).join('')}</select></label><label>${t('Språk','Language')}<select id="languageChoice"><option value="sv" ${preferences.lang==='sv'?'selected':''}>Svenska</option><option value="en" ${preferences.lang==='en'?'selected':''}>English</option></select></label><label class="inline"><input id="motionChoice" type="checkbox" ${preferences.motion?'checked':''}>${t('Tillåt diskreta animationer','Allow subtle animations')}</label><label class="inline"><input id="storageChoice" type="checkbox" ${preferences.store?'checked':''}>${t('Kom ihåg mina uppgifter på den här enheten','Remember my data on this device')}</label><p>${t('Sparade kurser, profil, anteckningar, egna betyg och framsteg lagras lokalt. Inga analyscookies eller externa spårningsverktyg används. GitHub sköter webbplatsens hosting. Avaktiverar du lagring rensas Meritlys sparade användaruppgifter och resten av sessionen blir tillfällig.','Saved courses, profile, notes, personal ratings and progress are stored locally. No analytics cookies or external trackers are used. GitHub hosts the site. Turning off storage clears saved Meritly user data and makes the rest of the session temporary.')}</p><div class="actions">${button(t('Exportera mina uppgifter','Export my data'),'export')}${button(t('Radera lokala uppgifter','Delete local data'),'clearData')}${button(t('Hämta för offlinebruk','Download for offline use'),'offline')}${button(t('Installera app','Install app'),'install')}</div><p id="offlineStatus" role="status"></p><label>${t('Importera säkerhetskopia (.json)','Import backup (.json)')}<input type="file" id="importData" accept="application/json,.json"></label><details><summary>${t('Om offline och lagring','About offline and storage')}</summary><p>${t('Appen använder webbläsarens cache för hämtade sidor. Offlinehämtningen sparar katalogen och alla 25 utbildningssidor. Externa kurser kräver internet. Favoriter och framsteg synkroniseras inte mellan enheter.','The app uses the browser cache for downloaded pages. Offline download stores the catalogue and all 25 course pages. External courses need internet. Favorites and progress do not sync between devices.')}</p></details></section>`}
+// Enable only after the same-origin endpoint implements CSRF protection,
+// rate limiting and server-managed sessions with Secure, HttpOnly cookies.
+const accountLoginEnabled = false;
+function account(){
+  return heading(t('Konto','Account'))+`<section class="content-panel settings">
+    <h2>${t('Logga in','Sign in')}</h2>
+    ${accountLoginEnabled?'':`<p>${t('Det här är en testsida. Inloggningen är avstängd.','This is a test page. Sign-in is disabled.')}</p>`}
+    <form method="post" action="${url('api/auth/login')}">
+      <fieldset ${accountLoginEnabled?'':'disabled'}>
+        <label>${t('E-postadress','Email address')}<input name="email" type="email" autocomplete="username" required></label>
+        <label>${t('Lösenord','Password')}<input name="password" type="password" autocomplete="current-password" required></label>
+        <button class="primary" type="submit">${t('Logga in','Sign in')}</button>
+      </fieldset>
+    </form>
+  </section>`;
+}
 function about(){return heading(t('Om Meritly','About Meritly'),t('Fler vägar till kunskap. Färre hinder att börja.','More paths to knowledge. Fewer barriers to start.'))+`<div class="about-grid"><section class="content-panel"><h2>${t('Vårt syfte','Our purpose')}</h2><p>${t('Meritly samlar kostnadsfria utbildningsmeriter för att göra dem enklare att hitta och jämföra. Katalogen är ett urval och omfattar inte alla certifikat på internet.','Meritly brings free learning credentials together to make them easier to discover and compare. The catalogue is a selection, not every certificate on the internet.')}</p></section><section class="content-panel"><h2>${t('Oberoende och tydligt','Independent and transparent')}</h2><p>${t('Meritly utfärdar inga certifikat. Loggor tillhör respektive ägare och innebär inget samarbete. Uppgifter om pris och krav behöver kontrolleras hos anordnaren.','Meritly does not issue certificates. Logos belong to their owners and do not imply a partnership. Prices and requirements must be checked with the provider.')}</p></section><section class="content-panel wide"><h2>${t('Anordnare i katalogen','Providers in the catalogue')}</h2><div class="provider-list">${Object.entries(providerLogos).map(([name,s])=>`<div class="provider-item"><img width="32" height="32" loading="lazy" src="${url('assets/logos/'+s+'.svg')}" alt="">${e(name)}</div>`).join('')}</div></section><section class="content-panel wide"><h2>${t('Din information','Your information')}</h2><p>${t('Alla personliga funktioner fungerar i din egen webbläsare. Du behöver inget konto. Framsteg, poäng och märken i Meritly är egna markeringar och inga officiella meriter.','All personal features work in your own browser. No account is needed. Progress, points and badges in Meritly are personal markers, not official credentials.')}</p><a href="${url('settings.html')}">${t('Hantera dina uppgifter →','Manage your data →')}</a></section></div>`}
 const faqs=()=>[[t('Är alla certifikat gratis?','Are all certificates free?'),t('De är listade som kostnadsfria, men utbud och villkor kan ändras. Kontrollera alltid att både kurs och merit är gratis hos anordnaren.','They are listed as free, but availability and terms may change. Always check that both the course and credential are free.')],[t('Kan jag logga in?','Can I sign in?'),t('Nej. Meritly har inga användarkonton. Dina uppgifter sparas bara i din webbläsare.','No. Meritly has no user accounts. Your data is saved only in your browser.')],[t('Är mina framsteg officiella?','Is my progress official?'),t('Nej. Du markerar själv dina framsteg. Certifikat utfärdas endast av anordnaren.','No. You record your own progress. Only the provider issues certificates.')],[t('Hur jämför jag kurser?','How do I compare courses?'),t('Markera Jämför på upp till tre kort och välj Jämför valda.','Select Compare on up to three cards, then Compare selected.')],[t('Fungerar det utan internet?','Does it work offline?'),t('Välj Hämta för offlinebruk i inställningarna. Webbplatsen kan då visa sparade sidor, men externa kurser kräver internet.','Choose Download for offline use in settings. Saved site pages will be available, but external courses require internet.')],[t('Hur lämnar jag feedback?','How do I give feedback?'),t('Använd Rapportera fel på en utbildningssida. Ett ärende förbereds på GitHub och du skickar det själv med ditt GitHub-konto. Inget skickas automatiskt.','Use Report an issue on a course page. A GitHub issue is prepared and you submit it with your GitHub account. Nothing is sent automatically.')]];
 function faq(){return heading(t('Vanliga frågor','Frequently asked questions'))+`<section class="content-panel">${faqs().map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('')}${button(t('Visa guiden','Show guide'),'guide')}${button(t('Lämna feedback via GitHub','Give feedback on GitHub'),'report')}</section>`}
 const releaseId='2026-11-local-tools';
 function updates(){return heading(t('Uppdateringar','Updates'))+`<section class="content-panel"><span class="tag">2026-11-06</span><h2>${t('Fler verktyg för ditt lärande','More tools for your learning')}</h2><p>${t('Nytt: mörkt tema, jämförelse, lokala profiler, studieplan, sökförslag, sparade sökningar och offlinehämtning.','New: dark theme, comparison, local profiles, learning plan, search suggestions, saved searches and offline download.')}</p>${button(t('Markera som läst','Mark as read'),'readUpdate')}${button(t('Kontrollera senaste ändringen i GitHub','Check latest change on GitHub'),'githubUpdate')}<div id="githubUpdateStatus" role="status"></div><p>${user.seen.includes(releaseId)?t('Läst','Read'):t('En oläst uppdatering','One unread update')}</p><a href="${url('features.html')}">${t('Se hela funktionsöversikten','See all features')}</a></section>`}
 function editor(){return heading(t('Katalogverktyg','Catalogue tools'),t('Lokala utkast. Publicering görs separat i GitHub.','Local drafts. Publishing is done separately in GitHub.'))+`<section class="content-panel"><p>${t('Detta är inget skyddat administratörskonto. Du kan förhandsgranska ändringar lokalt och exportera JSON. De ändrar inte den offentliga katalogen.','This is not a protected administrator account. Preview changes locally and export JSON. These do not change the public catalogue.')}</p><form id="editorForm"><label>${t('Utbildning','Course')}<select name="id" id="editorCourse">${catalogue().map(x=>`<option value="${x.id}">${e(x.title)} — ${e(x.provider)}</option>`).join('')}</select></label><label>${t('Titel','Title')}<input name="title" required minlength="3" maxlength="180"></label><label>${t('Beskrivning','Description')}<textarea name="description" required minlength="10" maxlength="2000"></textarea></label><label>${t('Anordnarens HTTPS-adress','Provider HTTPS URL')}<input name="url" required type="url" pattern="https://.*"></label><p id="editorValidation" role="status"></p><button type="submit" class="primary">${t('Spara lokalt utkast','Save local draft')}</button></form><div class="actions">${button(t('Exportera katalog-JSON','Export catalogue JSON'),'exportCatalogue')}${button(t('Återställ lokala utkast','Reset local drafts'),'clearDrafts')}<a class="btn secondary" href="https://github.com/Konrad654/Min-hemsida" target="_blank" rel="noopener">${t('Öppna källkoden på GitHub','Open source on GitHub')}</a></div><p>${t('Offentlig data redigeras i courses.js i GitHub. Kör node scripts/build.mjs för att bygga sidor och app före commit.','Edit public data in courses.js on GitHub. Run node scripts/build.mjs to rebuild pages and app before committing.')}</p></section>`}
-function refresh(){shell();if(currentView==='catalog')renderCatalog();else if(currentView==='detail')$('#main').innerHTML=detail(course(detailId));else if(currentView!=='features') $('#main').innerHTML=({dashboard,settings,about,faq,updates,editor}[currentView]||about)();if(currentView==='editor')fillEditor();bindDrag();observe()}
+function refresh(){shell();if(currentView==='catalog')renderCatalog();else if(currentView==='detail')$('#main').innerHTML=detail(course(detailId));else if(currentView!=='features') $('#main').innerHTML=({dashboard,settings,about,faq,updates,editor,account}[currentView]||about)();if(currentView==='editor')fillEditor();bindDrag();observe()}
 function fillEditor(){const f=$('#editorForm');if(!f)return;const x=course(f.elements.id.value);for(const k of ['title','description','url'])f.elements[k].value=x[k]}
 function observe(){if(!('IntersectionObserver'in window))return;const observer=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in-view');observer.unobserve(x.target)}}),{threshold:.02});$$('.reveal').forEach(el=>observer.observe(el))}
 function modal(title,body){const d=$('#dialog');$('#dialogTitle').textContent=title;$('#dialogBody').innerHTML=body;if(!d.open)d.showModal();return d}
@@ -155,11 +144,6 @@ theme:()=>{preferences.theme=document.documentElement.dataset.theme==='dark'?'li
 settings:()=>location.href=url('settings.html'),mobile:()=>{const nav=$('#navigation');nav.classList.toggle('open');const b=$('[data-action="mobile"]');b.setAttribute('aria-expanded',nav.classList.contains('open'))},
 command,guide,wizard:()=>{wizardStep=0;wizard()},guideNext:()=>{if(guideStep<2){guideStep++;guide()}else{user.onboarded=true;persist();$('#dialog').close();guideStep=0}},
 wizardNext:()=>{if(wizardStep===0){wizardCategory=$('#wizardCategory').value;if(!wizardCategory){$('#wizardError').textContent=t('Välj ett ämne först.','Choose a topic first.');return}}else wizardHours=$('#wizardHours').value;wizardStep++;wizard()},wizardBack:()=>{wizardStep--;wizard()},wizardApply:()=>{filters={...filters,category:wizardCategory,duration:wizardHours};$('#dialog').close();currentView='catalog';history.replaceState(null,'',url('index.html'));refresh();$('#catalog').scrollIntoView({behavior:'smooth'})},
-spotlight:selectSpotlight,
-toggleProviders:()=>{
-  providerPlayback = currentProviderPlayback()==='playing'?'paused':'playing';
-  updateProviderPlayback(providerPlayback);
-},
 slide:v=>$('.carousel').scrollBy({left:Number(v)*360,behavior:'smooth'}),
 catalogTab:v=>{tabView=v;location.hash=v==='saved'?'sparade':'catalog';currentPage=1;renderCatalog()},
 clearFilter:k=>{filters[k]='';if(k==='category'||k==='q'){const u=new URL(location);u.searchParams.delete(k);history.replaceState(null,'',u)}refresh()},
@@ -193,8 +177,5 @@ let scrollQueued=false;window.addEventListener('scroll',()=>{if(scrollQueued)ret
 window.addEventListener('storage',ev=>{if(ev.key==='meritly-local-v4'){user={...defaults(),...read('meritly-local-v4',{})};refresh()}});window.addEventListener('hashchange',()=>{if(currentView==='catalog'){tabView=location.hash==='#sparade'?'saved':'all';renderCatalog()}});
 if(currentView==='detail'&&course(detailId)){user.recent=[detailId,...user.recent.filter(x=>x!==detailId)].slice(0,12);user.activity.unshift({message:t('Öppnade ','Opened ')+course(detailId).title,courseId:detailId,time:Date.now()});user.activity=user.activity.slice(0,80);persist()}
 refresh();
-providerMotion().addEventListener('change',()=>{
-  if(providerPlayback===undefined && currentView==='catalog')updateProviderPlayback(currentProviderPlayback());
-});
 if(!user.onboarded){$('#welcome').innerHTML=`<p>${t('Ny här? Sök, jämför och skapa en lokal studieplan.','New here? Search, compare and create a local learning plan.')}</p>${button(t('Visa guiden','Show guide'),'guide')}${button(t('Stäng','Dismiss'),'dismissWelcome')}`;actions.dismissWelcome=()=>{user.onboarded=true;persist();$('#welcome').replaceChildren()}}
 if('serviceWorker'in navigator){navigator.serviceWorker.register(url('sw.js')).then(reg=>{reg.addEventListener('updatefound',()=>{const worker=reg.installing;worker?.addEventListener('statechange',()=>{if(worker.state==='installed'&&navigator.serviceWorker.controller)toast(t('En ny version finns. Ladda om sidan för att uppdatera.','A new version is available. Reload to update.'))})})}).catch(()=>{})}
