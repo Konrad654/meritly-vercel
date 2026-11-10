@@ -272,7 +272,7 @@ dialog{padding:22px}
 input,select,textarea{font-size:16px}
 .side select{font-size:13px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}
-*,*:before,*:after{animation:none!important;transition:none!important}}
+*:not(.provider-track),*:before,*:after{animation:none!important;transition:none!important}}
 .no-motion{scroll-behavior:auto}
 .no-motion *{animation:none!important;transition:none!important}
 
@@ -510,12 +510,13 @@ body[data-view="catalog"] .main {
 }
 
 .provider-toggle::before {
-  content: "Ⅱ";
-}
-
-.provider-toggle[aria-pressed="true"]::before {
   content: "▶";
   font-size: 11px;
+}
+
+.provider-strip[data-playback="playing"] .provider-toggle::before {
+  content: "Ⅱ";
+  font-size: 16px;
 }
 
 .provider-strip ul {
@@ -542,34 +543,33 @@ body[data-view="catalog"] .main {
   filter: grayscale(1);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html:not(.no-motion) .provider-toggle {
-    display: grid;
-  }
+html:not(.no-motion) .provider-toggle {
+  display: grid;
+}
 
-  html:not(.no-motion) .provider-viewport {
-    overflow: hidden;
-  }
+html:not(.no-motion) .provider-strip:not([data-playback="idle"]) .provider-viewport {
+  overflow: hidden;
+}
 
-  html:not(.no-motion) .provider-track {
-    display: flex;
-    width: max-content;
-    min-width: 200%;
-    animation: provider-loop 52s linear infinite;
-  }
+html:not(.no-motion) .provider-strip:not([data-playback="idle"]) .provider-track {
+  display: flex;
+  width: max-content;
+  min-width: 200%;
+  animation: provider-loop 52s linear infinite;
+}
 
-  html:not(.no-motion) .provider-track ul {
-    display: flex;
-    flex: 1 0 auto;
-    flex-wrap: nowrap;
-    gap: 32px;
-    padding-inline: 16px;
-    white-space: nowrap;
-  }
+html:not(.no-motion) .provider-strip:not([data-playback="idle"]) .provider-track ul {
+  display: flex;
+  flex: 1 0 auto;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  gap: 32px;
+  padding-inline: 16px;
+  white-space: nowrap;
+}
 
-  .provider-strip[data-paused="true"] .provider-track {
-    animation-play-state: paused;
-  }
+html:not(.no-motion) .provider-strip[data-playback="paused"] .provider-track {
+  animation-play-state: paused;
 }
 
 @keyframes provider-loop {

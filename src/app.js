@@ -42,7 +42,17 @@ const spotlightTopics = [
   {category:'Cybersäkerhet', art:'dusk', description:()=>t('Nätverk och grunderna i säkerhet.','Networks and security fundamentals.')}
 ];
 let spotlightIndex = 1;
-let providersPaused = false;
+let providerPlayback;
+const providerMotion = ()=>matchMedia('(prefers-reduced-motion: reduce)');
+const currentProviderPlayback = ()=>providerPlayback ?? (providerMotion().matches?'idle':'playing');
+const providerButtonLabel = playback=>playback==='playing'
+  ? t('Pausa logoraden','Pause provider logos')
+  : t('Spela logoraden','Play provider logos');
+
+function updateProviderPlayback(playback){
+  $('.provider-strip').dataset.playback = playback;
+  $('.provider-toggle').setAttribute('aria-label',providerButtonLabel(playback));
+}
 
 function spotlightCards(){
   const order = [(spotlightIndex+2)%3, spotlightIndex, (spotlightIndex+1)%3];
@@ -64,6 +74,7 @@ function selectSpotlight(value){
 }
 
 function hero(){
+  const playback = currentProviderPlayback();
   const providers = Object.entries(providerLogos);
   const providerItems = providers.map(([name,asset])=>`<li><img loading="lazy" width="25" height="25" src="${url('assets/logos/'+asset+'.svg')}" alt=""><span>${e(name)}</span></li>`).join('');
   return `<section class="hero" aria-labelledby="hero-title">
@@ -85,10 +96,10 @@ function hero(){
         <a href="#catalog" class="btn secondary">${t('Se hela katalogen','View the full catalogue')} ${icon('↗')}</a>
       </div>
     </section>
-    <div class="provider-strip" data-paused="${providersPaused}">
+    <div class="provider-strip" data-playback="${playback}">
       <div class="provider-heading">
         <p>${t('Utbildningsanordnare i katalogen','Course providers in the catalogue')}</p>
-        <button class="provider-toggle" type="button" data-action="toggleProviders" aria-label="${t('Pausa logoraden','Pause provider logos')}" aria-pressed="${providersPaused}" aria-controls="provider-track"></button>
+        <button class="provider-toggle" type="button" data-action="toggleProviders" aria-label="${providerButtonLabel(playback)}" aria-controls="provider-track"></button>
       </div>
       <div class="provider-viewport">
         <div id="provider-track" class="provider-track">
@@ -146,9 +157,8 @@ command,guide,wizard:()=>{wizardStep=0;wizard()},guideNext:()=>{if(guideStep<2){
 wizardNext:()=>{if(wizardStep===0){wizardCategory=$('#wizardCategory').value;if(!wizardCategory){$('#wizardError').textContent=t('Välj ett ämne först.','Choose a topic first.');return}}else wizardHours=$('#wizardHours').value;wizardStep++;wizard()},wizardBack:()=>{wizardStep--;wizard()},wizardApply:()=>{filters={...filters,category:wizardCategory,duration:wizardHours};$('#dialog').close();currentView='catalog';history.replaceState(null,'',url('index.html'));refresh();$('#catalog').scrollIntoView({behavior:'smooth'})},
 spotlight:selectSpotlight,
 toggleProviders:()=>{
-  providersPaused = !providersPaused;
-  $('.provider-strip').dataset.paused = String(providersPaused);
-  $('.provider-toggle').setAttribute('aria-pressed',String(providersPaused));
+  providerPlayback = currentProviderPlayback()==='playing'?'paused':'playing';
+  updateProviderPlayback(providerPlayback);
 },
 slide:v=>$('.carousel').scrollBy({left:Number(v)*360,behavior:'smooth'}),
 catalogTab:v=>{tabView=v;location.hash=v==='saved'?'sparade':'catalog';currentPage=1;renderCatalog()},
@@ -183,5 +193,8 @@ let scrollQueued=false;window.addEventListener('scroll',()=>{if(scrollQueued)ret
 window.addEventListener('storage',ev=>{if(ev.key==='meritly-local-v4'){user={...defaults(),...read('meritly-local-v4',{})};refresh()}});window.addEventListener('hashchange',()=>{if(currentView==='catalog'){tabView=location.hash==='#sparade'?'saved':'all';renderCatalog()}});
 if(currentView==='detail'&&course(detailId)){user.recent=[detailId,...user.recent.filter(x=>x!==detailId)].slice(0,12);user.activity.unshift({message:t('Öppnade ','Opened ')+course(detailId).title,courseId:detailId,time:Date.now()});user.activity=user.activity.slice(0,80);persist()}
 refresh();
+providerMotion().addEventListener('change',()=>{
+  if(providerPlayback===undefined && currentView==='catalog')updateProviderPlayback(currentProviderPlayback());
+});
 if(!user.onboarded){$('#welcome').innerHTML=`<p>${t('Ny här? Sök, jämför och skapa en lokal studieplan.','New here? Search, compare and create a local learning plan.')}</p>${button(t('Visa guiden','Show guide'),'guide')}${button(t('Stäng','Dismiss'),'dismissWelcome')}`;actions.dismissWelcome=()=>{user.onboarded=true;persist();$('#welcome').replaceChildren()}}
 if('serviceWorker'in navigator){navigator.serviceWorker.register(url('sw.js')).then(reg=>{reg.addEventListener('updatefound',()=>{const worker=reg.installing;worker?.addEventListener('statechange',()=>{if(worker.state==='installed'&&navigator.serviceWorker.controller)toast(t('En ny version finns. Ladda om sidan för att uppdatera.','A new version is available. Reload to update.'))})})}).catch(()=>{})}
