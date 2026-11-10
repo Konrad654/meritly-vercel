@@ -105,6 +105,10 @@ footer a,footer .brand{color:inherit}
 footer small{color:var(--muted)}
 #site-footer{display:flex;justify-content:space-between;gap:30px}
 footer nav{display:grid;grid-template-columns:1fr 1fr;gap:12px 28px;font-size:13px}
+footer .footer-social{display:flex;align-items:flex-start;gap:8px}
+.footer-social a{display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:var(--pill);background:var(--surface)}
+.footer-social a:hover{border-color:var(--muted)}
+
 .sectiontitle p{color:var(--muted)}
 .eyebrow{font-size:12px;color:var(--secondary-text);font-weight:500}
 .sectiontitle h1,.sectiontitle h2{font-size:clamp(32px,4vw,48px);line-height:1.13;margin:12px 0 16px}
