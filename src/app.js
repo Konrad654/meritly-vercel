@@ -42,6 +42,7 @@ const spotlightTopics = [
   {category:'Cybersäkerhet', art:'dusk', description:()=>t('Nätverk och grunderna i säkerhet.','Networks and security fundamentals.')}
 ];
 let spotlightIndex = 1;
+let providersPaused = false;
 
 function spotlightCards(){
   const order = [(spotlightIndex+2)%3, spotlightIndex, (spotlightIndex+1)%3];
@@ -64,6 +65,7 @@ function selectSpotlight(value){
 
 function hero(){
   const providers = Object.entries(providerLogos);
+  const providerItems = providers.map(([name,asset])=>`<li><img loading="lazy" width="25" height="25" src="${url('assets/logos/'+asset+'.svg')}" alt=""><span>${e(name)}</span></li>`).join('');
   return `<section class="hero" aria-labelledby="hero-title">
     <div class="hero-intro">
       <h1 id="hero-title">${t('Lär dig mer.<br>Visa vad du kan.','Learn more.<br>Show your skills.')}</h1>
@@ -83,9 +85,17 @@ function hero(){
         <a href="#catalog" class="btn secondary">${t('Se hela katalogen','View the full catalogue')} ${icon('↗')}</a>
       </div>
     </section>
-    <div class="provider-strip">
-      <p>${t('Utbildningsanordnare i katalogen','Course providers in the catalogue')}</p>
-      <ul>${providers.map(([name,asset])=>`<li><img loading="lazy" width="25" height="25" src="${url('assets/logos/'+asset+'.svg')}" alt=""><span>${e(name)}</span></li>`).join('')}</ul>
+    <div class="provider-strip" data-paused="${providersPaused}">
+      <div class="provider-heading">
+        <p>${t('Utbildningsanordnare i katalogen','Course providers in the catalogue')}</p>
+        <button class="provider-toggle" type="button" data-action="toggleProviders" aria-label="${t('Pausa logoraden','Pause provider logos')}" aria-pressed="${providersPaused}" aria-controls="provider-track"></button>
+      </div>
+      <div class="provider-viewport">
+        <div id="provider-track" class="provider-track">
+          <ul>${providerItems}</ul>
+          <ul aria-hidden="true">${providerItems}</ul>
+        </div>
+      </div>
     </div>
   </section>`;
 }
@@ -135,6 +145,11 @@ settings:()=>location.href=url('settings.html'),mobile:()=>{const nav=$('#naviga
 command,guide,wizard:()=>{wizardStep=0;wizard()},guideNext:()=>{if(guideStep<2){guideStep++;guide()}else{user.onboarded=true;persist();$('#dialog').close();guideStep=0}},
 wizardNext:()=>{if(wizardStep===0){wizardCategory=$('#wizardCategory').value;if(!wizardCategory){$('#wizardError').textContent=t('Välj ett ämne först.','Choose a topic first.');return}}else wizardHours=$('#wizardHours').value;wizardStep++;wizard()},wizardBack:()=>{wizardStep--;wizard()},wizardApply:()=>{filters={...filters,category:wizardCategory,duration:wizardHours};$('#dialog').close();currentView='catalog';history.replaceState(null,'',url('index.html'));refresh();$('#catalog').scrollIntoView({behavior:'smooth'})},
 spotlight:selectSpotlight,
+toggleProviders:()=>{
+  providersPaused = !providersPaused;
+  $('.provider-strip').dataset.paused = String(providersPaused);
+  $('.provider-toggle').setAttribute('aria-pressed',String(providersPaused));
+},
 slide:v=>$('.carousel').scrollBy({left:Number(v)*360,behavior:'smooth'}),
 catalogTab:v=>{tabView=v;location.hash=v==='saved'?'sparade':'catalog';currentPage=1;renderCatalog()},
 clearFilter:k=>{filters[k]='';if(k==='category'||k==='q'){const u=new URL(location);u.searchParams.delete(k);history.replaceState(null,'',u)}refresh()},
